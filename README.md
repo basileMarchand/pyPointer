@@ -1,6 +1,6 @@
 
 ### pyPointer
-@author : Basile Marchand
+@author : Basile Marchand  
 @mail   : basile.marchand@gmail.com
 
 pyPointer is a really basic package which allow to monitor memory usage and time comsuption
@@ -16,11 +16,11 @@ All ideas for new functionalities or comments are welcome and can be send to bas
 - Download the packages or clone git repository
 
 - extend your PYTHONPATH variable : 
-  -  in your .bashrc file as follow
-     export PYTHONPATH="/path/to/pyPointer/package:$PYTHONPATH"
-  -  or dynamicaly in your python script as follow 
-     import sys
-     sys.path.insert(0, "path/to/pyPointer/package")
+  -  in your .bashrc file as follow   
+         export PYTHONPATH="/path/to/pyPointer/package:$PYTHONPATH"
+  -  or dynamicaly in your python script as follow   
+         import sys  
+         sys.path.insert(0, "path/to/pyPointer/package")  
 
 
 
