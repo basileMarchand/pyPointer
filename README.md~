@@ -1,0 +1,8 @@
+
+### pyToteFEM
+@author : Basile Marchand
+
+pyToteFEM est un package python implémentant la méthode des éléments finis dans un paradigme relativement Orienté Objet.
+L'idée est de fournir à toutes et à tous un outils relativement simple d'utilisation et facilement adaptable au besoin
+de chaque utilisateur. 
+Néanmoins, bien que les performances ne soient pas le soucis principal, certaines parties du module sont implémentées en cython.

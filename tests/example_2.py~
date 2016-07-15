@@ -1,0 +1,8 @@
+import pointer as p
+
+from testB import toto
+
+
+toto()
+
+
