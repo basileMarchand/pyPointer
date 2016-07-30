@@ -24,7 +24,7 @@
 # date       : 15-07-2016                                                                                         
 #----------------------------------      
 
-__all__ = ['create_or_connect']
+__all__ = ['create_or_connect', 'Point', 'MemoryPoint', 'TimePoint']
 
 from .pointer import create_or_connect, Point, MemoryPoint, TimePoint
 

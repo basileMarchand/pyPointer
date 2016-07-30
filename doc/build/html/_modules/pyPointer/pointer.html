@@ -1,0 +1,376 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>pyPointer.pointer &mdash; pyPointer 0.1 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+    <link rel="top" title="pyPointer 0.1 documentation" href="../../index.html"/>
+        <link rel="up" title="Module code" href="../index.html"/> 
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        
+          <a href="../../index.html" class="fa fa-home"> pyPointer</a>
+        
+        
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+          
+          
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../introduction.html">pyPointer presentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../introduction.html#interest">Interest</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../introduction.html#installation">Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../introduction.html#prerequistes">Prerequistes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../introduction.html#example-of-usage">Example of usage</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../documentation.html">pyPointer&#8217;s module documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../documentation.html#module-pyPointer">Pointer object build</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../documentation.html#pointer-object-description">Pointer object description</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../documentation.html#time-pointer">Time pointer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../documentation.html#memory-pointer">Memory pointer</a></li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="../../index.html">pyPointer</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../../index.html">Docs</a> &raquo;</li>
+      
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      
+    <li>pyPointer.pointer</li>
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document">
+            
+  <h1>Source code for pyPointer.pointer</h1><div class="highlight"><pre>
+<span></span><span class="c1">#==============================================================================</span>
+<span class="c1"># Copyright (C) 2016 Marchand Basile                                  </span>
+<span class="c1">#                                                                     </span>
+<span class="c1"># This file is part of pyPointer  </span>
+<span class="c1">#                                                                     </span>
+<span class="c1"># pyPointer is free software: you can redistribute it and/or modify   </span>
+<span class="c1"># it under the terms of the GNU General Public License as published by</span>
+<span class="c1"># the Free Software Foundation, either version 3 of the License, or   </span>
+<span class="c1"># any later version.                           </span>
+<span class="c1">#                                                               </span>
+<span class="c1"># pyPointer is distributed in the hope that it will be useful,   </span>
+<span class="c1"># but WITHOUT ANY WARRANTY; without even the implied warranty of </span>
+<span class="c1"># MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the  </span>
+<span class="c1"># GNU General Public License for more details.</span>
+<span class="c1">#                                </span>
+<span class="c1"># You should have received a copy of the GNU General Public License </span>
+<span class="c1"># along with pyPointer.  If not, see &lt;http://www.gnu.org/licenses/&gt;   </span>
+<span class="c1">#==============================================================================          </span>
+<span class="c1">#----------------------------------      </span>
+<span class="c1"># package    : pyPointer     </span>
+<span class="c1"># file       : pointer.py                                                                                                  </span>
+<span class="c1"># content    : Object definition and constructor function for pointers</span>
+<span class="c1"># author     : Basile Marchand (basile.marchand@gmail.com)                                                                     </span>
+<span class="c1"># date       : 15-07-2016                                                                                         </span>
+<span class="c1">#----------------------------------      </span>
+
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">psutil</span>
+
+<span class="n">__MEMORY_POINT</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">__TIME_POINT</span>   <span class="o">=</span> <span class="p">{}</span>
+
+<div class="viewcode-block" id="create_or_connect"><a class="viewcode-back" href="../../documentation.html#pyPointer.create_or_connect">[docs]</a><span class="k">def</span> <span class="nf">create_or_connect</span><span class="p">(</span><span class="n">kind</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">pid</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Function which create a new Pointer (time or memory) or connect to an </span>
+<span class="sd">    existing one. </span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ------------</span>
+<span class="sd">    kind : string {&#39;memory&#39;, &#39;time&#39;}</span>
+<span class="sd">       the kind of Pointer we want declare</span>
+<span class="sd">    name : string</span>
+<span class="sd">       the name of the pointer, used to check if is already defined and then</span>
+<span class="sd">       we connect to it or if it is necessary to declare a new Point object</span>
+<span class="sd">    pid : int, optional</span>
+<span class="sd">       the PID of the process to monitor, if None the current PID process is used. </span>
+
+<span class="sd">    Returns </span>
+<span class="sd">    -----------</span>
+<span class="sd">    out : Point</span>
+<span class="sd">       Point object (MemoryPoint or TimePoint)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;time&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">__TIME_POINT</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;TimePoint object named </span><span class="si">%s</span><span class="s1"> already exists you can connect to it&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;TimePoint object named </span><span class="si">%s</span><span class="s2"> doesn&#39;t exists, we create it&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+            <span class="n">__TIME_POINT</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">TimePoint</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">__TIME_POINT</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> 
+    <span class="k">elif</span> <span class="n">kind</span> <span class="o">==</span> <span class="s2">&quot;memory&quot;</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">__MEMORY_POINT</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="k">print</span><span class="p">(</span><span class="s1">&#39;MemoryPoint object named </span><span class="si">%s</span><span class="s1"> already exists you can connect to it&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span><span class="p">(</span><span class="s2">&quot;MemoryPoint object named </span><span class="si">%s</span><span class="s2"> doesn&#39;t exists, we create it&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+            <span class="n">__MEMORY_POINT</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">MemoryPoint</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">__MEMORY_POINT</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> 
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span><span class="p">(</span><span class="s2">&quot;Object </span><span class="si">%s</span><span class="s2"> not avalaible&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">kind</span><span class="p">))</span>
+
+</div>
+<div class="viewcode-block" id="Point"><a class="viewcode-back" href="../../documentation.html#pyPointer.Point">[docs]</a><span class="k">class</span> <span class="nc">Point</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pid</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">pid</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">pid</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__process</span> <span class="o">=</span> <span class="n">psutil</span><span class="o">.</span><span class="n">Process</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_header</span> <span class="o">=</span> <span class="p">{</span><span class="mi">0</span><span class="p">:</span><span class="s1">&#39;Before &#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span><span class="s1">&#39;After &#39;</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_order</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_tasks</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">get_process</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__process</span>
+
+    <span class="n">PROC</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">get_process</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_get_val</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="ne">NotImplementedError</span>
+
+    <span class="k">def</span> <span class="nf">_store</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">label</span><span class="p">,</span> <span class="n">io</span><span class="p">,</span> <span class="o">*</span><span class="n">val</span><span class="p">):</span>
+        <span class="k">return</span> <span class="ne">NotImplementedError</span>
+
+    <span class="k">def</span> <span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="n">val1</span><span class="p">,</span> <span class="n">val2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_measure</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_store</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">val1</span><span class="p">,</span> <span class="n">val2</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="n">val1</span><span class="p">,</span> <span class="n">val2</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_measure</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_store</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">val1</span><span class="p">,</span> <span class="n">val2</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">reboot</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="k">return</span> <span class="ne">NotImplementedError</span>
+
+    <span class="k">def</span> <span class="nf">resume</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">full</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;-&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">30</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">_name</span><span class="o">.</span><span class="n">center</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;-&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">30</span><span class="p">)</span> <span class="p">)</span>
+        <span class="k">if</span> <span class="n">full</span> <span class="ow">is</span> <span class="bp">False</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_final_display_by_tasks</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_final_display_full</span><span class="p">()</span>
+
+        <span class="k">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s1">&#39;-&#39;</span><span class="p">]</span><span class="o">*</span><span class="mi">80</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_final_display_full</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">label</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_order</span><span class="p">:</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_measures</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="o">*</span><span class="n">val</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span> <span class="n">msg</span> <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_final_display_by_tasks</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tasks</span><span class="p">:</span>
+            <span class="n">val</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_tasks_val</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
+            <span class="n">msg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_format2</span><span class="p">(</span><span class="n">task</span><span class="p">,</span> <span class="o">*</span><span class="n">val</span><span class="p">)</span>
+            <span class="k">print</span><span class="p">(</span> <span class="n">msg</span> <span class="p">)</span>
+</div>
+<div class="viewcode-block" id="MemoryPoint"><a class="viewcode-back" href="../../documentation.html#pyPointer.MemoryPoint">[docs]</a><span class="k">class</span> <span class="nc">MemoryPoint</span><span class="p">(</span><span class="n">Point</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pid</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="n">Point</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pid</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s1">&#39;RSS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s1">&#39;VIRTUAL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s2">&quot;Memory&quot;</span>
+        
+    <span class="k">def</span> <span class="nf">_measure</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">mem</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">PROC</span><span class="o">.</span><span class="n">memory_info</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">mem</span><span class="o">.</span><span class="n">rss</span><span class="o">/</span><span class="mf">1.e6</span><span class="p">,</span> <span class="n">mem</span><span class="o">.</span><span class="n">vms</span><span class="o">/</span><span class="mf">1.e6</span>
+
+    <span class="k">def</span> <span class="nf">_store</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">label</span><span class="p">,</span> <span class="n">io</span><span class="p">,</span> <span class="o">*</span><span class="n">val</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">io</span><span class="o">==</span><span class="mi">0</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_header</span><span class="p">[</span><span class="n">io</span><span class="p">]</span> <span class="o">+</span> <span class="n">label</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_order</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s1">&#39;RSS&#39;</span><span class="p">][</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s1">&#39;VIRTUAL&#39;</span><span class="p">][</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        
+    <span class="k">def</span> <span class="nf">_format</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">label</span><span class="p">,</span> <span class="o">*</span><span class="n">val</span><span class="p">):</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Memory Point </span><span class="si">%s</span><span class="s2"> (MB)&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">label</span><span class="p">)</span> <span class="p">)</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">35</span><span class="p">)</span>
+        <span class="n">text</span> <span class="o">+=</span> <span class="p">(</span><span class="s2">&quot;:   </span><span class="si">%.2f</span><span class="s2"> (RSS)&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">)</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span> 
+        <span class="n">text</span> <span class="o">+=</span> <span class="s2">&quot;  -  &quot;</span> 
+        <span class="n">text</span> <span class="o">+=</span> <span class="p">(</span><span class="s2">&quot;</span><span class="si">%.2f</span><span class="s2"> (Virtual)&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">val</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="p">)</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">text</span>
+
+    <span class="k">def</span> <span class="nf">_format2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="o">*</span><span class="n">val</span><span class="p">):</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Memory allocation for </span><span class="si">%s</span><span class="s2"> (MB)&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">label</span><span class="p">)</span> <span class="p">)</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">35</span><span class="p">)</span>
+        <span class="n">text</span> <span class="o">+=</span> <span class="p">(</span><span class="s2">&quot;:   </span><span class="si">%.2f</span><span class="s2"> (RSS)&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">)</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span> 
+        <span class="n">text</span> <span class="o">+=</span> <span class="s2">&quot;  -  &quot;</span> 
+        <span class="n">text</span> <span class="o">+=</span> <span class="p">(</span><span class="s2">&quot;</span><span class="si">%.2f</span><span class="s2"> (Virtual)&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">val</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="p">)</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">text</span>
+
+    <span class="k">def</span> <span class="nf">_get_measures</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s1">&#39;RSS&#39;</span><span class="p">][</span><span class="n">label</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s1">&#39;VIRTUAL&#39;</span><span class="p">][</span><span class="n">label</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_get_tasks_val</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task_label</span><span class="p">):</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_header</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">task_label</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_header</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">task_label</span>
+        <span class="n">rss_diff</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s1">&#39;RSS&#39;</span><span class="p">][</span><span class="n">b</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s1">&#39;RSS&#39;</span><span class="p">][</span><span class="n">a</span><span class="p">]</span>
+        <span class="n">virtual_diff</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s1">&#39;VIRTUAL&#39;</span><span class="p">][</span><span class="n">b</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s1">&#39;VIRTUAL&#39;</span><span class="p">][</span><span class="n">a</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">rss_diff</span><span class="p">,</span> <span class="n">virtual_diff</span>
+</div>
+<div class="viewcode-block" id="TimePoint"><a class="viewcode-back" href="../../documentation.html#pyPointer.TimePoint">[docs]</a><span class="k">class</span> <span class="nc">TimePoint</span><span class="p">(</span><span class="n">Point</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pid</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+        <span class="n">Point</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pid</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s1">&#39;WALL&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s1">&#39;CPU&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_name</span> <span class="o">=</span> <span class="s2">&quot;Time&quot;</span>
+
+    <span class="k">def</span> <span class="nf">_measure</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">PROC</span><span class="o">.</span><span class="n">cpu_times</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">time</span><span class="o">.</span><span class="n">user</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">system</span>
+
+    <span class="k">def</span> <span class="nf">_store</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">label</span><span class="p">,</span> <span class="n">io</span><span class="p">,</span> <span class="o">*</span><span class="n">val</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">io</span><span class="o">==</span><span class="mi">0</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_header</span><span class="p">[</span><span class="n">io</span><span class="p">]</span> <span class="o">+</span> <span class="n">label</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_order</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">label</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s1">&#39;WALL&#39;</span><span class="p">][</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s1">&#39;CPU&#39;</span><span class="p">][</span><span class="n">label</span><span class="p">]</span> <span class="o">=</span> <span class="n">val</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_format2</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">label</span><span class="p">,</span> <span class="o">*</span><span class="n">val</span><span class="p">):</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Time for </span><span class="si">%s</span><span class="s2"> (s)&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">label</span><span class="p">)</span> <span class="p">)</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">35</span><span class="p">)</span>
+        <span class="n">text</span> <span class="o">+=</span> <span class="p">(</span><span class="s2">&quot;:   </span><span class="si">%.2f</span><span class="s2"> (WALL)&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">val</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="p">)</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span> 
+        <span class="n">text</span> <span class="o">+=</span> <span class="s2">&quot;  -  &quot;</span> 
+        <span class="n">text</span> <span class="o">+=</span> <span class="p">(</span><span class="s2">&quot;</span><span class="si">%.2f</span><span class="s2"> (CPU)&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">val</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="p">)</span><span class="o">.</span><span class="n">ljust</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">text</span>
+
+    <span class="k">def</span> <span class="nf">_get_tasks_val</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task_label</span><span class="p">):</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_header</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">task_label</span>
+        <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_header</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">task_label</span>
+        <span class="n">rss_diff</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s1">&#39;WALL&#39;</span><span class="p">][</span><span class="n">b</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s1">&#39;WALL&#39;</span><span class="p">][</span><span class="n">a</span><span class="p">]</span>
+        <span class="n">virtual_diff</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s1">&#39;CPU&#39;</span><span class="p">][</span><span class="n">b</span><span class="p">]</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s1">&#39;CPU&#39;</span><span class="p">][</span><span class="n">a</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">rss_diff</span><span class="p">,</span> <span class="n">virtual_diff</span>
+</pre></div></div>
+
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2016, Basile Marchand.
+    </p>
+  </div>
+
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../../',
+            VERSION:'0.1',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="../../_static/jquery.js"></script>
+      <script type="text/javascript" src="../../_static/underscore.js"></script>
+      <script type="text/javascript" src="../../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
