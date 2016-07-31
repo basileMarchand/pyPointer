@@ -186,6 +186,9 @@
 
 </div>
 <div class="viewcode-block" id="Point"><a class="viewcode-back" href="../../documentation.html#pyPointer.Point">[docs]</a><span class="k">class</span> <span class="nc">Point</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Base definition of the Point mother object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pid</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">pid</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">pid</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">()</span>
@@ -240,6 +243,10 @@
             <span class="k">print</span><span class="p">(</span> <span class="n">msg</span> <span class="p">)</span>
 </div>
 <div class="viewcode-block" id="MemoryPoint"><a class="viewcode-back" href="../../documentation.html#pyPointer.MemoryPoint">[docs]</a><span class="k">class</span> <span class="nc">MemoryPoint</span><span class="p">(</span><span class="n">Point</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Definition of the MemoryPoint object heritate from </span>
+<span class="sd">    Point object</span>
+
+<span class="sd">    &quot;&quot;&quot;</span> 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pid</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="n">Point</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pid</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="p">{}</span>
@@ -283,6 +290,10 @@
         <span class="k">return</span> <span class="n">rss_diff</span><span class="p">,</span> <span class="n">virtual_diff</span>
 </div>
 <div class="viewcode-block" id="TimePoint"><a class="viewcode-back" href="../../documentation.html#pyPointer.TimePoint">[docs]</a><span class="k">class</span> <span class="nc">TimePoint</span><span class="p">(</span><span class="n">Point</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">    Definition of the TimePoint object heritate from</span>
+<span class="sd">    the Point object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pid</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="n">Point</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">pid</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="p">{}</span>

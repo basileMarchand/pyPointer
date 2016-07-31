@@ -71,6 +71,9 @@ def create_or_connect(kind, name, pid=None):
 
 
 class Point(object):
+    """
+    Base definition of the Point mother object
+    """
     def __init__(self, pid=None):
         if pid is None:
             pid = os.getpid()
@@ -125,6 +128,10 @@ class Point(object):
             print( msg )
 
 class MemoryPoint(Point):
+    """ Definition of the MemoryPoint object heritate from 
+    Point object
+
+    """ 
     def __init__(self, pid=None):
         Point.__init__(self, pid)
         self._data = {}
@@ -168,6 +175,10 @@ class MemoryPoint(Point):
         return rss_diff, virtual_diff
 
 class TimePoint(Point):
+    """ 
+    Definition of the TimePoint object heritate from
+    the Point object
+    """
     def __init__(self, pid=None):
         Point.__init__(self, pid)
         self._data = {}

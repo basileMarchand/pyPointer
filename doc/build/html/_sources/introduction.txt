@@ -15,14 +15,18 @@ Installation
 ------------
 
 To install pyPointer module : 
-(a) download the archive file or clone the git repository
-(b) add the path of pyPoiter directory to your PYTHONPATH environment variable
+- download the archive file or clone the git repository
+- add the path of pyPoiter directory to your PYTHONPATH environment variable
 or add in your python code the following line
 
 
 
 Prerequistes
 ------------
+
+pyPointer works with python 2.7+ or python 3.X there is only one prerequist which is the psutil module.
+
+
 
 
 

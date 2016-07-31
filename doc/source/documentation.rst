@@ -13,7 +13,7 @@ Pointer object description
 --------------------------
 
 .. autoclass:: pyPointer.Point
-   :members: 
+   :members: start, stop, resume
 
 
 Time pointer
